@@ -7,8 +7,14 @@ function counter() {
   // ejemplo: const newCounter = counter();
   // newCounter(); // 1
   // newCounter(); // 2
+ function closures(){
+   var contador = 1
+   return function(){
+    return contador++;
+ }
+ }
+return closures();
 }
-
 function cacheFunction(cb) {
   // Usa closures para crear un caché para la función cb.
   // la función que retornas debe aceptar un solo argumento e invocar a cb con ese argumento
@@ -21,8 +27,18 @@ function cacheFunction(cb) {
   // si la invocas de nuevo con 5, deberia retornar 25 (guardado previament en el cache)
   // Tips, usá un objeto donde cada propiedad sea un argumento, y el valor el resultado.
   // usá hasOwnProperty!
-}
+var cache = {}
 
+return function (arg) {
+if(cache.hasOwnProperty(arg)) {
+return cache[arg];
+}else{
+let result = cb(arg);
+cache[arg] = result;
+return result;
+}
+}; 
+}
 // Bind
 
 var instructor = {
@@ -41,14 +57,14 @@ function getNombre(){
  // Escribir código, sin modificar lo que ya se encuentra escrito arriba, para poder llamar al método getNombre para obtener primero el nombre del instructor y luego para obtener el nombre del alumno.
 // Modificar los undefined por el código correspondiente en cada caso
 // Pista, tenes que bindear el this!
-let getNombreInstructor = undefined;
-let getNombreAlumno = undefined;
+let getNombreInstructor = getNombre.bind(instructor); 
+let getNombreAlumno = getNombre.bind(alumno);
 
 
 /*Guardar en las siguientes tres variables una función que devuelva una cadena utilizando la función "crearCadena"
 y el delimitador especificado. La idea es realizarlo con la función bind para poder volver a utilizarlo múltiples veces luego:
 
-1. textoAsteriscos
+1. textoAsteriscos 
 2. textoGuiones
 3. textoUnderscore
 
@@ -61,11 +77,11 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena){
 // Modificar los undefined por el código correspondiente en cada caso
 // Pista, tenes que usar bind para "bindear" algunos parámetros de la función crearCadena.
 
-let textoAsteriscos = undefined;
+let textoAsteriscos = crearCadena.bind(null, '*', '*');
 
-let textoGuiones = undefined;
+let textoGuiones = crearCadena.bind(null, '-', '-');
 
-let textoUnderscore = undefined;
+let textoUnderscore = crearCadena.bind(null, '_', '_');
 
 
 
